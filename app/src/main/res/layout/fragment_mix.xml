@@ -11,6 +11,17 @@
     <TextView
         android:text="@string/hello_world"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/firstTextView" />
+
+    <TextView
+        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/secondTextView"
+        android:layout_toEndOf="@+id/firstTextView"
+        android:layout_marginLeft="82dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/firstTextView" />
 
 </RelativeLayout>
