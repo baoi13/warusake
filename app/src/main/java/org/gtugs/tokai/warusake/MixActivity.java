@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class MixActivity extends Activity {
     public static class PlaceholderFragment extends Fragment {
         private TextView firstTextView;
         private TextView secondTextView;
+        private Button okawariButton;
         private ImageButton shareButton;
 
         private Handler handler = new Handler();
@@ -73,12 +75,20 @@ public class MixActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_mix, container, false);
             this.firstTextView = (TextView) rootView.findViewById(R.id.firstTextView);
             this.secondTextView = (TextView) rootView.findViewById(R.id.secondTextView);
+            this.okawariButton = (Button) rootView.findViewById(R.id.okawariButton);
             this.shareButton = (ImageButton) rootView.findViewById(R.id.shareButton);
 
             this.firstTextView.setText(randomText());
             this.secondTextView.setText("");
+            this.okawariButton.setVisibility(View.INVISIBLE);
             this.shareButton.setVisibility(View.INVISIBLE);
 
+            this.okawariButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
             this.shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -105,6 +115,7 @@ public class MixActivity extends Activity {
                     @Override
                     public void run() {
                         PlaceholderFragment.this.secondTextView.setText(randomText());
+                        PlaceholderFragment.this.okawariButton.setVisibility(View.VISIBLE);
                         PlaceholderFragment.this.shareButton.setVisibility(View.VISIBLE);
                     }
                 });
