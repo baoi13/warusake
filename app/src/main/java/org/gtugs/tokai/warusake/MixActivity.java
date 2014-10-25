@@ -3,24 +3,22 @@ package org.gtugs.tokai.warusake;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
-import android.widget.Button;
 
 
-public class MyActivity extends Activity {
+
+public class MixActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_mix);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -28,10 +26,11 @@ public class MyActivity extends Activity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
+        getMenuInflater().inflate(R.menu.mix, menu);
         return true;
     }
 
@@ -51,7 +50,6 @@ public class MyActivity extends Activity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        private Button mixButton;
 
         public PlaceholderFragment() {
         }
@@ -59,16 +57,7 @@ public class MyActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_my, container, false);
-            this.mixButton = (Button) rootView.findViewById(R.id.mixButton);
-
-            this.mixButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), MixActivity.class);
-                    startActivity(intent);
-                }
-            });
+            View rootView = inflater.inflate(R.layout.fragment_mix, container, false);
             return rootView;
         }
     }
