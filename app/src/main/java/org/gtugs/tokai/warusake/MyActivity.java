@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
-
+import android.widget.Button;
 
 
 public class MyActivity extends Activity {
@@ -50,6 +51,7 @@ public class MyActivity extends Activity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        private Button mixButton;
 
         public PlaceholderFragment() {
         }
@@ -58,6 +60,14 @@ public class MyActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my, container, false);
+            this.mixButton = (Button) rootView.findViewById(R.id.mixButton);
+
+            this.mixButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("test", "割る");
+                }
+            });
             return rootView;
         }
     }
