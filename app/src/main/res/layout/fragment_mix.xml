@@ -24,4 +24,13 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/firstTextView" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tweetButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/twitter" />
+
 </RelativeLayout>

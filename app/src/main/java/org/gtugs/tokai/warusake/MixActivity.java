@@ -2,6 +2,8 @@ package org.gtugs.tokai.warusake;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -9,8 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,6 +59,7 @@ public class MixActivity extends Activity {
     public static class PlaceholderFragment extends Fragment {
         private TextView firstTextView;
         private TextView secondTextView;
+        private ImageButton tweetButton;
 
         private Handler handler = new Handler();
 
@@ -66,9 +72,20 @@ public class MixActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_mix, container, false);
             this.firstTextView = (TextView) rootView.findViewById(R.id.firstTextView);
             this.secondTextView = (TextView) rootView.findViewById(R.id.secondTextView);
+            this.tweetButton = (ImageButton) rootView.findViewById(R.id.tweetButton);
 
             this.firstTextView.setText(randomText());
             this.secondTextView.setText("");
+            this.tweetButton.setVisibility(View.INVISIBLE);
+
+            this.tweetButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = "http://twitter.com/share?text=" + tweetText();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                }
+            });
 
             /* 時間が来たらSecondTaskを呼び出す */
             Timer timer = new Timer();
@@ -89,8 +106,21 @@ public class MixActivity extends Activity {
                     @Override
                     public void run() {
                         PlaceholderFragment.this.secondTextView.setText(randomText());
+                        PlaceholderFragment.this.tweetButton.setVisibility(View.VISIBLE);
                     }
                 });
+            }
+        }
+
+        private String tweetText() {
+            String first = this.firstTextView.getText().toString();
+            String second = this.secondTextView.getText().toString();
+            String text = first + "を" + second + "で割って飲みま〜す #warusake";
+
+            try {
+                return URLEncoder.encode(text, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                return null;
             }
         }
     }
