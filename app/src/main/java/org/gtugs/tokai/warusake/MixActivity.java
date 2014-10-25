@@ -2,13 +2,16 @@ package org.gtugs.tokai.warusake;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -54,6 +57,7 @@ public class MixActivity extends Activity {
     public static class PlaceholderFragment extends Fragment {
         private TextView firstTextView;
         private TextView secondTextView;
+        private Button okawariButton;
 
         private Handler handler = new Handler();
 
@@ -66,14 +70,22 @@ public class MixActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_mix, container, false);
             this.firstTextView = (TextView) rootView.findViewById(R.id.firstTextView);
             this.secondTextView = (TextView) rootView.findViewById(R.id.secondTextView);
+            this.okawariButton = (Button) rootView.findViewById(R.id.okawariButton);
 
             this.firstTextView.setText(randomText());
             this.secondTextView.setText("");
+            this.okawariButton.setVisibility(View.INVISIBLE);
 
             /* 時間が来たらSecondTaskを呼び出す */
             Timer timer = new Timer();
             timer.schedule(new SecondTask(), 3000);
 
+            this.okawariButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
             return rootView;
         }
 
@@ -89,6 +101,7 @@ public class MixActivity extends Activity {
                     @Override
                     public void run() {
                         PlaceholderFragment.this.secondTextView.setText(randomText());
+                        PlaceholderFragment.this.okawariButton.setVisibility(View.VISIBLE);
                     }
                 });
             }
